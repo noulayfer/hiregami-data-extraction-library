@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.hiregami.config.FileProcessingAutoConfiguration
+  com.hiregami.data_extraction_library.config.FileProcessingAutoConfiguration

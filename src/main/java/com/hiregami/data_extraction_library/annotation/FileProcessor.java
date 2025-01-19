@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FileProcessor {
-    String rawTopic() default "";
-    String processedTopic() default "";
+  String rawTopic() default "";
+
+  String processedTopic() default "";
 }
