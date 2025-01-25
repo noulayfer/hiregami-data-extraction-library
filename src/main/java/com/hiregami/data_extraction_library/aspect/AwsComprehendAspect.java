@@ -1,15 +1,17 @@
 package com.hiregami.data_extraction_library.aspect;
 
 import com.hiregami.data_extraction_library.annotation.AwsComprehendProcess;
-import com.hiregami.data_extraction_library.dto.CandidateProfile;
+import com.hiregami.data_extraction_library.contextProvider.ApplicationContextProvider;
 import com.hiregami.data_extraction_library.dto.ProfileContext;
 import com.hiregami.data_extraction_library.service.AwsComprehendService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
+import software.amazon.awssdk.services.comprehend.ComprehendClient;
+import software.amazon.awssdk.services.comprehend.model.DetectEntitiesRequest;
+import software.amazon.awssdk.services.comprehend.model.DetectEntitiesResponse;
 
 @Aspect
 @RequiredArgsConstructor
@@ -36,13 +38,21 @@ public class AwsComprehendAspect {
 
     String parsedData = context.get("parsedData", String.class);
 
-    CandidateProfile candidateProfile = new CandidateProfile();
-    candidateProfile.setName("John Doe");
-    candidateProfile.setSkills(List.of("Java", "Spring Boot", "AWS"));
-    System.out.println("AwsComprehendProcess: Candidate profile created");
+    ComprehendClient comprehendClient = ApplicationContextProvider.getBean(ComprehendClient.class);
+    DetectEntitiesRequest request =
+        DetectEntitiesRequest.builder().text(parsedData).languageCode("en").build();
 
-    context.set("candidateProfile", candidateProfile);
+    DetectEntitiesResponse response = comprehendClient.detectEntities(request);
 
-    return joinPoint.proceed(args);
+    response
+        .entities()
+        .forEach(
+            entity -> {
+              System.out.printf(
+                  "Entity: %s, Type: %s, Score: %f%n",
+                  entity.text(), entity.typeAsString(), entity.score());
+            });
+
+    return joinPoint.proceed();
   }
 }
