@@ -6,15 +6,16 @@ import com.hiregami.data_extraction_library.strategy.FileParserStrategy;
 import com.hiregami.data_extraction_library.strategy.StrategyFactory;
 import java.io.InputStream;
 import java.util.Objects;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Aspect
+@RequiredArgsConstructor
 public class FileProcessorAspect {
 
-  @Autowired private StrategyFactory strategyFactory;
+  private final StrategyFactory strategyFactory;
 
   @Around("@annotation(fileProcessor)")
   public Object processFile(ProceedingJoinPoint joinPoint, FileProcessor fileProcessor)

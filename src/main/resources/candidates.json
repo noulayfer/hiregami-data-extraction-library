@@ -1,0 +1,20 @@
+[
+  {
+    "name": "John Doe",
+    "surname": "Doe",
+    "age": 29,
+    "developerType": "Full Stack",
+    "programmingLanguages": ["Java", "JavaScript", "Python"],
+    "skills": ["Spring Boot", "React", "Docker"],
+    "languages": ["English", "Spanish"]
+  },
+  {
+    "name": "Jane Smith",
+    "surname": "Smith",
+    "age": 32,
+    "developerType": "Data Scientist",
+    "programmingLanguages": ["Python", "R", "SQL"],
+    "skills": ["Pandas", "Scikit-learn", "Spark"],
+    "languages": ["English"]
+  }
+]

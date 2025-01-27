@@ -1,1 +1,3 @@
 com.hiregami.data_extraction_library.config.FileProcessingAutoConfiguration
+com.hiregami.data_extraction_library.aspect.AwsComprehendAspect
+com.hiregami.data_extraction_library.aspect.FileProcessorAspect
